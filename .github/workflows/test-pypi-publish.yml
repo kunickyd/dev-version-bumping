@@ -31,28 +31,17 @@ jobs:
       with:
         python-version: '3.x'
 
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install setuptools wheel twine build
-
-    - name: Build package
-      run: python -m build
-
     - name: Get current version
       id: get_version      
       run: |
         pip install bumpver
         echo "CURRENT_VERSION=$(bumpver show --no-fetch | grep 'Current Version: ' | cut -d ':' -f 2)" >> $GITHUB_OUTPUT
-
-    - name: Print version
-      run: echo ${{ steps.get_version.outputs.CURRENT_VERSION }}
-
-    - name: Setup git config
-      run: |        
-        git config --global user.name "kunickyd"
-        git config --global user.email "danecek37@gmail.com"
-
+  
+      # - name: Setup git config
+      #   run: |        
+      #     git config --global user.name "kunickyd"
+      #     git config --global user.email "danecek37@gmail.com"
+  
     - name: Bump dev version    
       if: ${{ contains(steps.get_version.outputs.CURRENT_VERSION, 'dev') }}
       run: bumpver update --commit --push -f -c '${{ env.BUMPVER_COMMIT_MESSAGE_TEMPLATE }}' --tag-num
@@ -60,7 +49,15 @@ jobs:
     #It's still open if the new version after release should be pathc (or minor?)
     - name: Bump patch dev version
       if: ${{ !contains(steps.get_version.outputs.CURRENT_VERSION, 'dev') }}
-      run: bumpver update --commit --push -f -c '${{ env.BUMPVER_COMMIT_MESSAGE_TEMPLATE }}' --patch --tag=dev      
+      run: bumpver update --commit --push -f -c '${{ env.BUMPVER_COMMIT_MESSAGE_TEMPLATE }}' --patch --tag=dev
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install setuptools wheel twine build
+
+    - name: Build package
+      run: python -m build
 
     - name: Publish package
       env:
