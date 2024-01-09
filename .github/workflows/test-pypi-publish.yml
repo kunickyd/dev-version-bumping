@@ -48,12 +48,12 @@ jobs:
 
     - name: Bump dev version    
       if: ${{ contains(steps.get_version.outputs.CURRENT_VERSION, 'dev') }}
-      run: bumpver --dry --tag-num
+      run: bumpver update --dry --tag-num
 
     #It's still open if the new version after release should be pathc (or minor?)
     - name: Bump patch dev version
       if: ${{ !contains(steps.get_version.outputs.CURRENT_VERSION, 'dev') }}
-      run: bumpver --dry --patch --tag=dev       
+      run: bumpver update --dry --patch --tag=dev       
 
     # - name: Publish package
     #   env:
