@@ -57,12 +57,12 @@ jobs:
 
     - name: Bump dev version    
       if: ${{ contains(steps.get_version.outputs.CURRENT_VERSION, 'dev') }}
-      run: bumpver update --commit -c -n '${{ env.BUMPVER_COMMIT_MESSAGE_TEMPLATE }}' --tag-num
+      run: bumpver update --commit -n -c '${{ env.BUMPVER_COMMIT_MESSAGE_TEMPLATE }}' --tag-num
 
     #It's still open if the new version after release should be pathc (or minor?)
     - name: Bump patch dev version
       if: ${{ !contains(steps.get_version.outputs.CURRENT_VERSION, 'dev') }}
-      run: bumpver update --commit -c -n '${{ env.BUMPVER_COMMIT_MESSAGE_TEMPLATE }}' --patch --tag=dev      
+      run: bumpver update --commit -n -c '${{ env.BUMPVER_COMMIT_MESSAGE_TEMPLATE }}' --patch --tag=dev      
       
     - name: Push bumped version
       uses: ad-m/github-push-action@master
