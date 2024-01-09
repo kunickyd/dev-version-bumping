@@ -61,9 +61,9 @@ jobs:
     - name: Bump patch dev version
       if: ${{ !contains(steps.get_version.outputs.CURRENT_VERSION, 'dev') }}
       run: bumpver update --commit --push -f -c '${{ env.BUMPVER_COMMIT_MESSAGE_TEMPLATE }}' --patch --tag=dev      
-      
-    # - name: Publish package
-    #   env:
-    #     TWINE_USERNAME: __token__
-    #     TWINE_PASSWORD: ${{ secrets.TEST_PYPI_API_TOKEN }}
-    #   run: python -m twine upload --repository testpypi dist/*
+
+    - name: Publish package
+      env:
+        TWINE_USERNAME: __token__
+        TWINE_PASSWORD: ${{ secrets.TEST_PYPI_API_TOKEN }}
+      run: python -m twine upload --repository testpypi dist/*
