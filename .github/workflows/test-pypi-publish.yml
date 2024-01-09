@@ -24,9 +24,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
-      with:
-        persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of your personal access token.        
+    - uses: actions/checkout@v3       
 
     - name: Set up Python
       uses: actions/setup-python@v4
@@ -57,18 +55,18 @@ jobs:
 
     - name: Bump dev version    
       if: ${{ contains(steps.get_version.outputs.CURRENT_VERSION, 'dev') }}
-      run: bumpver update --commit -n -c '${{ env.BUMPVER_COMMIT_MESSAGE_TEMPLATE }}' --tag-num
+      run: bumpver update --commit -f --push -c '${{ env.BUMPVER_COMMIT_MESSAGE_TEMPLATE }}' --tag-num
 
     #It's still open if the new version after release should be pathc (or minor?)
     - name: Bump patch dev version
       if: ${{ !contains(steps.get_version.outputs.CURRENT_VERSION, 'dev') }}
-      run: bumpver update --commit -n -c '${{ env.BUMPVER_COMMIT_MESSAGE_TEMPLATE }}' --patch --tag=dev      
+      run: bumpver update --commit -f --push -c '${{ env.BUMPVER_COMMIT_MESSAGE_TEMPLATE }}' --patch --tag=dev      
       
-    - name: Push bumped version
-      uses: ad-m/github-push-action@master
-      with:
-        github_token: ${{ secrets.PAT }}
-        branch: ${{ github.ref }}
+    # - name: Push bumped version
+    #   uses: ad-m/github-push-action@master
+    #   with:
+    #     github_token: ${{ secrets.PAT }}
+    #     branch: ${{ github.ref }}
 
     # - name: Publish package
     #   env:
