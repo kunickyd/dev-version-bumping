@@ -48,6 +48,11 @@ jobs:
     - name: Print version
       run: echo ${{ steps.get_version.outputs.CURRENT_VERSION }}
 
+    - name: Setup git config
+      run: |        
+        git config user.name "GitHub Actions Bot"
+        git config user.email "<>"
+
     - name: Bump dev version    
       if: ${{ contains(steps.get_version.outputs.CURRENT_VERSION, 'dev') }}
       run: bumpver update --commit -c '$BUMPVER_COMMIT_MESSAGE_TEMPLATE' --push --tag-num
