@@ -37,10 +37,10 @@ jobs:
         pip install bumpver
         echo "CURRENT_VERSION=$(bumpver show --no-fetch | grep 'Current Version: ' | cut -d ':' -f 2)" >> $GITHUB_OUTPUT
   
-      # - name: Setup git config
-      #   run: |        
-      #     git config --global user.name "kunickyd"
-      #     git config --global user.email "danecek37@gmail.com"
+    - name: Setup git config
+      run: |        
+        git config --global user.name "Github Actions Bot"
+        git config --global user.email "<>"
   
     - name: Bump dev version    
       if: ${{ contains(steps.get_version.outputs.CURRENT_VERSION, 'dev') }}
