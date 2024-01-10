@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "dev-version-bumping"
-version = "0.2.1dev3"
+version = "0.2.1"
 authors = [
   { name="Daniel Kunický", email="danecek37@gmail.com" },
 ]
@@ -21,7 +21,7 @@ classifiers = [
 "Bug Tracker" = "https://github.com/kunickyd/dev-version-bumping/issues"
 
 [tool.bumpver]
-current_version = "0.2.1dev3"
+current_version = "0.2.1"
 version_pattern = "MAJOR.MINOR.PATCH[TAGNUM]"
 
 [tool.bumpver.file_patterns]
