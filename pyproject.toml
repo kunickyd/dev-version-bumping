@@ -23,6 +23,7 @@ classifiers = [
 [tool.bumpver]
 current_version = "0.2.2dev0"
 version_pattern = "MAJOR.MINOR.PATCH[TAGNUM]"
+commit_message = "bumpver/{old_version} -> {new_version} [skip actions]"
 
 [tool.bumpver.file_patterns]
 "pyproject.toml" = [
