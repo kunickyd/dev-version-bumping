@@ -1,0 +1,1 @@
+This is a personal testing playground for Pypi continuos delivery.

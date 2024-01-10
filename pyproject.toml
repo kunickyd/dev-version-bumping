@@ -8,6 +8,7 @@ version = "0.2.2"
 authors = [
   { name="Daniel Kunický", email="danecek37@gmail.com" },
 ]
+readme = "README.md"
 description = "Playground for developmnet CD"
 requires-python = ">=3.7"
 classifiers = [
