@@ -11,7 +11,7 @@ name: Upload to PyPI TEST
 on:
   push:    
     branches:    
-      - main
+      - develop
 
 permissions:
   contents: write
@@ -46,7 +46,7 @@ jobs:
       if: ${{ contains(steps.get_version.outputs.CURRENT_VERSION, 'dev') }}
       run: bumpver update --commit --push -f -c '${{ env.BUMPVER_COMMIT_MESSAGE_TEMPLATE }}' --tag-num
 
-    #It's still open if the new version after release should be pathc (or minor?)
+    #It's still open if the new version after release should be patch (or minor?)
     - name: Bump patch dev version
       if: ${{ !contains(steps.get_version.outputs.CURRENT_VERSION, 'dev') }}
       run: bumpver update --commit --push -f -c '${{ env.BUMPVER_COMMIT_MESSAGE_TEMPLATE }}' --patch --tag=dev
