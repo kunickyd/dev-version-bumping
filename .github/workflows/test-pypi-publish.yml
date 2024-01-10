@@ -18,9 +18,6 @@ permissions:
 
 jobs:
   deploy:
-    env:
-      BUMPVER_COMMIT_MESSAGE_TEMPLATE: bump version {old_version} -> {new_version}
-
     runs-on: ubuntu-latest
 
     steps:
@@ -44,12 +41,12 @@ jobs:
   
     - name: Bump dev version    
       if: ${{ contains(steps.get_version.outputs.CURRENT_VERSION, 'dev') }}
-      run: bumpver update --commit --push -f -c '${{ env.BUMPVER_COMMIT_MESSAGE_TEMPLATE }}' --tag-num
+      run: bumpver update --commit --push -f --tag-num
 
     #It's still open if the new version after release should be patch (or minor?)
     - name: Bump patch dev version
       if: ${{ !contains(steps.get_version.outputs.CURRENT_VERSION, 'dev') }}
-      run: bumpver update --commit --push -f -c '${{ env.BUMPVER_COMMIT_MESSAGE_TEMPLATE }}' --patch --tag=dev
+      run: bumpver update --commit --push -f --patch --tag=dev
 
     - name: Install dependencies
       run: |
